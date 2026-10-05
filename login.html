@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block content %}
+<section class="login-layout">
+  <div class="login-aside">
+    <img class="login-brand-image" src="{{ url_for('static', filename='uspg-official.png') }}" alt="Universidad San Pablo Guatemala">
+    <div class="aside-copy">
+      <p class="eyebrow">GESTIÓN ACADÉMICA</p>
+      <h1>Sistema de Control<br>de Asistencia.</h1>
+      <p>Un espacio centralizado para registrar, validar y consultar la asistencia de nuestra comunidad académica.</p>
+    </div>
+    <span class="aside-index">UNIVERSIDAD SAN PABLO <b>GUATEMALA</b></span>
+  </div>
+  <div class="login-panel">
+    <div class="login-form-wrap">
+      <p class="eyebrow">UNIVERSIDAD SAN PABLO · GUATEMALA</p>
+      <h2>Iniciar sesión</h2>
+      <p class="muted">Usa las credenciales de tu cuenta institucional.</p>
+      <form method="post" class="stack-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="identifier">Correo o carnet institucional</label>
+        <input id="identifier" name="identifier" type="text" autocomplete="username" placeholder="nombre@alumno.uspg.edu.gt o 2600403" required autofocus>
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Tu contraseña" required>
+        <button class="button button-primary button-wide" type="submit">Iniciar sesión <span aria-hidden="true">→</span></button>
+      </form>
+      <p><a href="{{ url_for('main.recover_password') }}">¿Olvidaste tu contraseña?</a></p>
+      <p class="login-note"><span class="status-dot"></span> Acceso protegido para la comunidad USPG</p>
+      <p class="register-link">¿Eres estudiante nuevo? <a href="{{ url_for('main.student_registration') }}">Crea tu cuenta</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}
