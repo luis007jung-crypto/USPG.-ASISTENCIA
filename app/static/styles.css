@@ -987,3 +987,17 @@ h1, h2, .brand strong { font-family: var(--font-body); }
   .expo-qr { flex-direction: column; align-items: flex-start; }
   .expo-public { padding: 24px 16px; }
 }
+
+/* Dedicated Expo entry, separate from the academic login form */
+.expo-entry-card { margin-bottom: 28px; padding: 24px; border: 1px solid #dbe1e8; border-top: 4px solid #aa182b; border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgba(1,25,49,.06); }
+.expo-entry-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.expo-entry-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: #f9edef; color: #aa182b; font-size: 24px; }
+.expo-entry-badge { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: #52616f; }
+.expo-entry-card h2 { margin: 0 0 8px; font-size: 24px; color: #011931; }
+.expo-entry-card p { margin: 0 0 18px; color: #52616f; font-size: 14px; line-height: 1.5; }
+.expo-entry-button { background: #aa182b; border-color: #aa182b; min-height: 48px; border-radius: 6px; }
+.expo-entry-button:hover { background: #861322; border-color: #861322; }
+.expo-entry-card small { display: block; margin-top: 12px; font-size: 11px; line-height: 1.5; color: #52616f; text-align: center; }
+.login-access-divider { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; color: #687786; font-size: 9px; font-weight: 800; letter-spacing: .7px; }
+.login-access-divider::before, .login-access-divider::after { content: ""; height: 1px; background: #dbe1e8; flex: 1; }
+@media (max-width: 600px) { .expo-entry-card { padding: 20px; } .expo-entry-button { font-size: 12px; } }
