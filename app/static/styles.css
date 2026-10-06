@@ -967,3 +967,23 @@ h1, h2, .brand strong { font-family: var(--font-body); }
 @media (max-width: 760px) {
   .recovery-card { padding: 28px 24px; }
 }
+
+/* Public event attendance and reports */
+.expo-public { max-width: 660px; margin: 0 auto; padding: 36px 20px; }
+.expo-intro { margin-bottom: 24px; }
+.expo-intro img { width: 200px; max-width: 100%; margin-bottom: 24px; }
+.expo-public textarea { width: 100%; font: inherit; border: 1px solid var(--line); padding: 12px; border-radius: 4px; resize: vertical; }
+.expo-consent { display: flex; align-items: flex-start; gap: 10px; font-weight: 400; }
+.expo-consent input { width: 18px; min-height: 18px; flex-shrink: 0; margin-top: 3px; }
+.expo-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.expo-stats strong { font-size: 38px; color: var(--teal); }
+.expo-qr { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
+.expo-qr img { flex-shrink: 0; }
+.expo-qr a { overflow-wrap: anywhere; }
+.expo-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 16px 0; }
+.expo-text { white-space: pre-wrap; overflow-wrap: anywhere; min-width: 180px; max-width: 350px; }
+@media (max-width: 760px) {
+  .expo-stats { grid-template-columns: repeat(2, 1fr); }
+  .expo-qr { flex-direction: column; align-items: flex-start; }
+  .expo-public { padding: 24px 16px; }
+}
