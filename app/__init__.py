@@ -65,6 +65,8 @@ def create_app(test_config=None):
     from app.routes import main
 
     app.register_blueprint(main)
+    from app.expo import expo
+    app.register_blueprint(expo)
 
     @login_manager.user_loader
     def load_user(user_id):
@@ -105,6 +107,12 @@ def create_app(test_config=None):
         with app.app_context():
             db.create_all()
         click.echo("Tablas de asistencia creadas.")
+
+    @app.cli.command("migrate-expo")
+    def migrate_expo_command():
+        """Add the public Expo table without changing existing attendance."""
+        models.ExpoAttendance.__table__.create(db.engine, checkfirst=True)
+        click.echo("Registro público de Expo San Pablo listo.")
 
     @app.cli.command("migrate-carnet")
     def migrate_carnet_command():
