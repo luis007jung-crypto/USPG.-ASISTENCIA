@@ -13,6 +13,14 @@
   </div>
   <div class="login-panel">
     <div class="login-form-wrap">
+      <section class="expo-entry-card" aria-labelledby="expo-entry-title">
+        <div class="expo-entry-heading"><span class="expo-entry-icon" aria-hidden="true">✦</span><span class="expo-entry-badge">ACCESO PÚBLICO</span></div>
+        <h2 id="expo-entry-title">Expo San Pablo</h2>
+        <p>Registra tu asistencia, participación y opinión del evento.</p>
+        <a class="button button-wide expo-entry-button" href="{{ url_for('expo.registration') }}">Registrar asistencia a la Expo <span aria-hidden="true">→</span></a>
+        <small>Sin iniciar sesión · Correos personales e institucionales</small>
+      </section>
+      <div class="login-access-divider"><span>ACCESO AL SISTEMA ACADÉMICO</span></div>
       <p class="eyebrow">UNIVERSIDAD SAN PABLO · GUATEMALA</p>
       <h2>Iniciar sesión</h2>
       <p class="muted">Usa las credenciales de tu cuenta institucional.</p>
@@ -26,7 +34,6 @@
       </form>
       <p><a href="{{ url_for('main.recover_password') }}">¿Olvidaste tu contraseña?</a></p>
       <p class="login-note"><span class="status-dot"></span> Acceso protegido para la comunidad USPG</p>
-      <p><a href="{{ url_for('expo.registration') }}">Expo San Pablo: registrar asistencia sin cuenta →</a></p>
       <p class="register-link">¿Eres estudiante nuevo? <a href="{{ url_for('main.student_registration') }}">Crea tu cuenta</a></p>
     </div>
   </div>
