@@ -48,7 +48,7 @@ def registration():
                 raise ValueError('Tu opinión debe tener como máximo 2000 caracteres.')
             if request.form.get('consent') != 'yes':
                 raise ValueError('Autoriza el registro de tus datos para este evento.')
-            if db.session.scalar(select(ExpoAttendance.id).where(ExpoAttendance.email == email)):
+            if db.session.scalar(select(ExpoAttendance.id).where(func.lower(func.trim(ExpoAttendance.email)) == email)):
                 flash('Este correo ya tiene asistencia registrada. No se sumó un registro nuevo.', 'warning')
                 return redirect(url_for('expo.registration'))
             db.session.add(ExpoAttendance(name=name, email=email, category=category,
