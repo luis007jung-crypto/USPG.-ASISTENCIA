@@ -134,3 +134,45 @@ def test_migration_idempotent(application):
     assert runner.invoke(args=['migrate-expo']).exit_code == 0
     assert runner.invoke(args=['migrate-expo']).exit_code == 0
     assert db.session.scalar(select(func.count()).select_from(ExpoAttendance)) == 1
+
+
+def test_login_has_separate_public_expo_button(application):
+    response = application.test_client().get('/')
+    assert response.status_code == 200
+    assert 'expo-entry-card' in response.text
+    assert 'Registrar asistencia a la Expo' in response.text
+    assert response.text.index('expo-entry-card') < response.text.index('name="identifier"')
+
+
+def test_accounts_reject_duplicate_email_and_profile_change(application):
+    from app.services import UserService
+    service = UserService()
+    service.register_student('Ana', 'ana@alumno.uspg.edu.gt', '2600002', 'Password123!')
+    with pytest.raises(ValueError, match='cuenta con ese correo'):
+        service.register_student('Otra Ana', ' ANA@ALUMNO.USPG.EDU.GT ', '2600003', 'Password123!')
+    other = service.register_student('Luis', 'luis@alumno.uspg.edu.gt', '2600004', 'Password123!')
+    with pytest.raises(ValueError):
+        service.update_profile(other.id, 'Luis', ' ANA@ALUMNO.USPG.EDU.GT ', '2600004')
+    assert db.session.scalar(select(func.count()).select_from(User)) == 4
+
+
+def test_existing_account_can_attend_expo_only_once(application):
+    client = application.test_client()
+    email = 'alumno@alumno.uspg.edu.gt'
+    submit(client, email=email, category='estudiante')
+    response = submit(client, email=' ALUMNO@ALUMNO.USPG.EDU.GT ', category='publico')
+    assert 'ya tiene asistencia' in response.text
+    assert db.session.scalar(select(func.count()).select_from(ExpoAttendance)) == 1
+    assert db.session.scalar(select(func.count()).select_from(User)) == 2
+
+
+def test_legacy_mixed_case_duplicates_rejected(application):
+    from app.services import UserService
+    user = User(name='Ana', email='ANA@alumno.uspg.edu.gt', role='alumno', carnet='2600002')
+    user.set_password('Password123!')
+    db.session.add(user)
+    db.session.add(ExpoAttendance(name='Ana', email='ANA@GMAIL.COM', category='publico', participation='Visitante'))
+    db.session.commit()
+    with pytest.raises(ValueError, match='cuenta con ese correo'):
+        UserService().register_student('Ana', 'ana@alumno.uspg.edu.gt', '2600003', 'Password123!')
+    assert 'ya tiene asistencia' in submit(application.test_client(), email='ana@gmail.com').text
